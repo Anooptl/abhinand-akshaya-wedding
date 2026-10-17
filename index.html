@@ -160,6 +160,40 @@ img{display:block;max-width:100%}
 .footer .callbtn:hover{background:rgba(217,180,92,.18)}
 .footer .thanks{margin-top:2.6rem;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(238,231,210,.55)}
 
+/* ---------- RSVP ---------- */
+.rsvp-panel{background:var(--green-deep);color:#f3ecd9;border:1px solid rgba(230,200,126,.45);border-radius:22px;padding:2.6rem 1.6rem 2.2rem;box-shadow:var(--shadow);max-width:820px;margin:2.8rem auto 0;text-align:left;position:relative}
+.rsvp-panel::before{content:'';position:absolute;inset:9px;border:1px solid rgba(230,200,126,.22);border-radius:15px;pointer-events:none}
+.rsvp-form{margin-top:.4rem;display:grid;gap:1.15rem;position:relative}
+.rsvp-form[hidden]{display:none}
+.rsvp-subgrid{grid-column:1/-1;display:grid;gap:1.15rem}
+@media(min-width:640px){
+  .rsvp-form{grid-template-columns:1fr 1fr}
+  .rsvp-subgrid{grid-template-columns:1fr 1fr}
+  .rsvp-form .full{grid-column:1/-1}
+}
+.field label,.field .flabel{display:block;font-size:.64rem;letter-spacing:.22em;text-transform:uppercase;font-weight:600;color:#e6c87e;margin-bottom:.45rem}
+.field .opt{text-transform:none;letter-spacing:.02em;color:rgba(243,236,217,.55);font-weight:300}
+.field input,.field select,.field textarea{width:100%;background:rgba(255,253,246,.07);border:1px solid rgba(230,200,126,.4);border-radius:10px;color:#fdf8ea;padding:.8rem .9rem;font-family:'Jost',sans-serif;font-size:1rem;font-weight:300}
+.field select option{color:#22301f;background:#fffdf6}
+.field textarea{resize:vertical;min-height:72px}
+.field input::placeholder,.field textarea::placeholder{color:rgba(243,236,217,.38)}
+.field input:focus,.field select:focus,.field textarea:focus{outline:2px solid var(--gold-bright);outline-offset:1px;border-color:transparent}
+.pills{display:flex;flex-wrap:wrap;gap:.5rem}
+.pill{position:relative;cursor:pointer;display:inline-block}
+.pill input{position:absolute;inset:0;opacity:0;cursor:pointer;margin:0}
+.pill span{display:inline-block;border:1px solid rgba(230,200,126,.45);border-radius:999px;padding:.55rem 1.05rem;font-size:.92rem;color:#f3ecd9;transition:background .25s,border-color .25s,color .25s}
+.pill:hover span{border-color:#e6c87e}
+.pill input:checked+span{background:linear-gradient(115deg,var(--gold),var(--gold-bright));color:#fffdf4;border-color:transparent;font-weight:500}
+.pill input:focus-visible+span{outline:2px solid #e6c87e;outline-offset:2px}
+.rsvp-error{color:#ffb59d;font-size:.95rem;text-align:center;margin:0}
+.rsvp-submit{border:0;font-size:.78rem;padding:1rem 2rem}
+.rsvp-submit svg{width:16px;height:16px;flex:0 0 auto}
+.rsvp-note{text-align:center;font-size:.86rem;color:rgba(243,236,217,.62);margin:.8rem 0 0}
+.rsvp-thanks{text-align:center;padding:1.2rem 0 .4rem;position:relative}
+.rsvp-thanks .bloom{font-size:2rem;color:#e6c87e;line-height:1}
+.rsvp-thanks h3{font-family:'Cormorant Garamond',serif;font-size:2.1rem;font-weight:600;color:#e6c87e;margin:.4rem 0 .3rem}
+.rsvp-thanks p{color:rgba(243,236,217,.88);max-width:480px;margin:0 auto}
+
 /* ---------- Petals & lightbox ---------- */
 .petals{position:fixed;inset:0;pointer-events:none;z-index:60;overflow:hidden}
 .petal{position:absolute;top:-4vh;color:var(--gold-bright);opacity:0;animation:fall linear forwards}
@@ -385,6 +419,90 @@ img{display:block;max-width:100%}
   </div>
 </section>
 
+<!-- ================= RSVP ================= -->
+<section class="section" id="rsvp">
+  <div class="wrap">
+    <div class="center reveal">
+      <div class="eyebrow">RSVP</div>
+      <div class="goldline"></div>
+      <h2 class="serif section-title">Are you coming?</h2>
+      <p class="section-sub">The wedding is at Mattannur, Kannur, and many of you will be travelling from Trivandrum and beyond. A quick reply helps us plan the feast, the seating and rooms for you.</p>
+    </div>
+    <div class="rsvp-panel reveal">
+      <form class="rsvp-form" id="rsvpForm" novalidate>
+        <div class="field">
+          <label for="rsvpName">Your name</label>
+          <input id="rsvpName" type="text" autocomplete="name" placeholder="Your full name">
+        </div>
+        <div class="field">
+          <label for="rsvpPhone">WhatsApp number</label>
+          <input id="rsvpPhone" type="tel" autocomplete="tel" inputmode="tel" placeholder="10-digit mobile number">
+        </div>
+        <div class="field full">
+          <div class="flabel" id="attendingLabel">Will you attend?</div>
+          <div class="pills" role="radiogroup" aria-labelledby="attendingLabel">
+            <label class="pill"><input type="radio" name="attending" value="yes" checked><span>Yes, I'll be there</span></label>
+            <label class="pill"><input type="radio" name="attending" value="no"><span>Sorry, I can't make it</span></label>
+          </div>
+        </div>
+        <div class="rsvp-subgrid" id="rsvpYesFields">
+          <div class="field full">
+            <div class="flabel" id="fnLabel">Which celebration?</div>
+            <div class="pills" role="radiogroup" aria-labelledby="fnLabel">
+              <label class="pill"><input type="radio" name="fn" value="wedding" checked><span>Wedding · Mattannur</span></label>
+              <label class="pill"><input type="radio" name="fn" value="reception"><span>Reception · Attingal</span></label>
+              <label class="pill"><input type="radio" name="fn" value="both"><span>Both</span></label>
+            </div>
+          </div>
+          <div class="field">
+            <label for="rsvpCount">How many guests? <span class="opt">(including you)</span></label>
+            <select id="rsvpCount">
+              <option value="1">1</option>
+              <option value="2" selected>2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="rsvpFrom">Coming from</label>
+            <input id="rsvpFrom" type="text" autocomplete="address-level2" placeholder="e.g. Trivandrum">
+          </div>
+          <div class="field full">
+            <div class="flabel" id="stayLabel">Need accommodation near the venue?</div>
+            <div class="pills" role="radiogroup" aria-labelledby="stayLabel">
+              <label class="pill"><input type="radio" name="stay" value="yes"><span>Yes, please</span></label>
+              <label class="pill"><input type="radio" name="stay" value="no" checked><span>No, we've arranged it</span></label>
+            </div>
+          </div>
+        </div>
+        <div class="field full">
+          <label for="rsvpMsg">Anything you'd like us to know? <span class="opt">(optional)</span></label>
+          <textarea id="rsvpMsg" placeholder="Blessings, questions, anything at all"></textarea>
+        </div>
+        <p class="rsvp-error full" id="rsvpError" role="alert" hidden></p>
+        <div class="full center">
+          <button class="btn btn-gold rsvp-submit" type="submit">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.6-1.2A9 9 0 1 0 12 3z"/><path d="M8.8 8.6c.2-.5.5-.5.8-.5h.5c.2 0 .4.1.5.4l.5 1.2c.1.2 0 .4-.1.6l-.5.6c.5 1 1.4 1.9 2.4 2.4l.6-.5c.2-.1.4-.2.6-.1l1.2.5c.3.1.4.3.4.5v.5c0 .3 0 .6-.5.8-2.9.9-7.3-3.5-6.4-6.4z" fill="currentColor" stroke="none"/></svg>
+            Confirm on WhatsApp
+          </button>
+          <p class="rsvp-note">Opens WhatsApp with your reply filled in — just press send there.</p>
+        </div>
+      </form>
+      <div class="rsvp-thanks" id="rsvpThanks" hidden>
+        <div class="bloom" aria-hidden="true">❀</div>
+        <h3>Thank you!</h3>
+        <p id="rsvpThanksText"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ================= GALLERY ================= -->
 <section class="section alt" id="gallery">
   <div class="wrap">
@@ -599,6 +717,109 @@ img{display:block;max-width:100%}
     if (Math.abs(dx) > 45) show(current + (dx < 0 ? 1 : -1));
     touchX = null;
   }, { passive: true });
+
+  /* ---------- RSVP form + WhatsApp confirm ----------
+     Replies are delivered on WhatsApp to the family number shown in the
+     footer. When the Cloudflare helper that saves replies into the private
+     GitHub repo is deployed, set RSVP_ENDPOINT to its URL and every reply
+     will also be posted there as JSON. */
+  var RSVP_ENDPOINT = "https://wedding-rsvp.anooptl4444.workers.dev";
+  var RSVP_WHATSAPP = "919495043883";
+  var rsvpForm = document.getElementById("rsvpForm");
+  if (rsvpForm){
+    var yesFields = document.getElementById("rsvpYesFields");
+    var errBox = document.getElementById("rsvpError");
+    function attendingVal(){
+      var r = rsvpForm.querySelector('input[name="attending"]:checked');
+      return r ? r.value : "yes";
+    }
+    /* What the browser itself offers: device model and browser type.
+       No name, number or account can be read from a browser — only this. */
+    function deviceInfo(){
+      var ua = navigator.userAgent || "";
+      var browser = /Edg\//.test(ua) ? "Edge"
+        : /SamsungBrowser\//.test(ua) ? "Samsung Internet"
+        : /OPR\/|Opera/.test(ua) ? "Opera"
+        : /Firefox\//.test(ua) ? "Firefox"
+        : /Chrome\//.test(ua) ? "Chrome"
+        : /Safari\//.test(ua) ? "Safari" : "Browser";
+      var os = /Android/.test(ua) ? "Android"
+        : /iPhone|iPad|iPod/.test(ua) ? "iOS"
+        : /Windows/.test(ua) ? "Windows"
+        : /Macintosh|Mac OS/.test(ua) ? "Mac"
+        : /Linux/.test(ua) ? "Linux" : "";
+      var model = "";
+      if (/Android/.test(ua)){
+        var seg = (ua.split(";")[2] || "").trim().replace(/\s*Build\/.*$/, "");
+        if (seg && !/^(K|wv|Mobile)$/i.test(seg)) model = seg;
+      } else if (/iPhone/.test(ua)) model = "iPhone";
+      else if (/iPad/.test(ua)) model = "iPad";
+      var label = [model, browser + (os ? " on " + os : "")].filter(Boolean).join(" · ");
+      return { model: model, browser: browser, os: os, label: label, ua: ua };
+    }
+    function syncAttending(){
+      var yes = attendingVal() === "yes";
+      yesFields.style.display = yes ? "" : "none";
+      yesFields.querySelectorAll("input, select, textarea").forEach(function(n){ n.disabled = !yes; });
+    }
+    rsvpForm.querySelectorAll('input[name="attending"]').forEach(function(r){
+      r.addEventListener("change", syncAttending);
+    });
+    syncAttending();
+    rsvpForm.addEventListener("submit", function(ev){
+      ev.preventDefault();
+      var name = document.getElementById("rsvpName").value.trim();
+      var digits = document.getElementById("rsvpPhone").value.replace(/\D/g, "");
+      var phone = digits.length > 10 ? digits.slice(-10) : digits;
+      var from = document.getElementById("rsvpFrom").value.trim();
+      var msg = document.getElementById("rsvpMsg").value.trim();
+      var attending = attendingVal();
+      var err = "";
+      if (!name) err = "Please tell us your name.";
+      else if (!/^[6-9]\d{9}$/.test(phone)) err = "Please enter a valid 10-digit mobile number.";
+      if (err){ errBox.textContent = err; errBox.hidden = false; return; }
+      errBox.hidden = true;
+      var device = deviceInfo();
+      var data = { name: name, phone: phone, attending: attending, from: from, message: msg, device: device, repliedAt: new Date().toISOString() };
+      var lines = [];
+      if (attending === "yes"){
+        var fn = rsvpForm.querySelector('input[name="fn"]:checked').value;
+        var stay = rsvpForm.querySelector('input[name="stay"]:checked').value;
+        var count = document.getElementById("rsvpCount").value;
+        data.function = fn; data.guests = count; data.accommodation = stay;
+        var fnText = fn === "both" ? "the Wedding & the Reception" : (fn === "wedding" ? "the Wedding (Sun 1 Nov, Mattannur)" : "the Reception (Tue 3 Nov, Attingal)");
+        lines.push("Namaste! I am coming to " + fnText + " — the wedding of Abhinand & Akshaya.");
+        lines.push("Name: " + name);
+        lines.push("Phone: " + phone);
+        lines.push("Guests (including me): " + count);
+        if (from) lines.push("Coming from: " + from);
+        lines.push("Accommodation needed: " + (stay === "yes" ? "Yes" : "No"));
+      } else {
+        lines.push("Namaste! I am sorry — I won't be able to attend the wedding of Abhinand & Akshaya.");
+        lines.push("Name: " + name);
+        lines.push("Phone: " + phone);
+      }
+      if (msg) lines.push("Message: " + msg);
+      if (device.label) lines.push("Sent from: " + device.label);
+      if (RSVP_ENDPOINT){
+        try {
+          fetch(RSVP_ENDPOINT, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
+            keepalive: true
+          }).catch(function(){});
+        } catch (e) { /* WhatsApp delivery below still carries the reply */ }
+      }
+      window.open("https://wa.me/" + RSVP_WHATSAPP + "?text=" + encodeURIComponent(lines.join("\n")), "_blank", "noopener");
+      rsvpForm.hidden = true;
+      document.getElementById("rsvpThanks").hidden = false;
+      document.getElementById("rsvpThanksText").textContent = attending === "yes"
+        ? "We're delighted you'll be there, " + name.split(" ")[0] + "! WhatsApp has opened with your reply ready — just press send there to confirm."
+        : "Thank you for letting us know, " + name.split(" ")[0] + " — you will be missed. WhatsApp has opened with your reply ready — just press send there.";
+      petalBurst();
+    });
+  }
 })();
 </script>
 </body>
